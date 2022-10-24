@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selfcheckoutapp/constants.dart';
 import 'package:selfcheckoutapp/screens/register.dart';
@@ -12,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   //ALERT DIALOG TO DISPLAY ERRORS
   Future<void> _alertDialogBuilder(String error) async {
     return showDialog(
@@ -26,15 +24,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
             actions: [
               TextButton(
-                child: Text("Close"),
+                child: Text("Fechar"),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               )
             ],
           );
-        }
-    );
+        });
   }
 
   //FORM INPUT VALUES
@@ -47,15 +44,14 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _loginEmail, password: _loginPassword);
       return null;
-    } on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return ('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         return ('Wrong password provided for that user.');
       }
       return e.message;
-    }
-    catch (e){
+    } catch (e) {
       return (e);
     }
   }
@@ -71,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
 
     //RUN THE CREATE ACCOUNT METHOD
     String _loginAccountFeedback = await _loginAccount();
-    if(_loginAccountFeedback != null){
+    if (_loginAccountFeedback != null) {
       _alertDialogBuilder(_loginAccountFeedback);
 
       //SET THE FORM TO REGULAR STATE
@@ -123,10 +119,10 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Email...",
                     textCapitalization: TextCapitalization.none,
                     textInputType: TextInputType.emailAddress,
-                    onChanged: (value){
+                    onChanged: (value) {
                       _loginEmail = value;
                     },
-                    onSubmitted: (value){
+                    onSubmitted: (value) {
                       _inputFocusNodePassword.requestFocus();
                     },
                     textInputAction: TextInputAction.next,
@@ -134,10 +130,10 @@ class _LoginPageState extends State<LoginPage> {
                   CustomInput(
                     hintText: "Password...",
                     textCapitalization: TextCapitalization.none,
-                    onChanged: (value){
+                    onChanged: (value) {
                       _loginPassword = value;
                     },
-                    onSubmitted: (value){
+                    onSubmitted: (value) {
                       _submitForm();
                     },
                     focusNode: _inputFocusNodePassword,
@@ -162,9 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegisterPage()
-                        )
-                    );
+                            builder: (context) => RegisterPage()));
                   },
                   outlineBtn: true,
                 ),

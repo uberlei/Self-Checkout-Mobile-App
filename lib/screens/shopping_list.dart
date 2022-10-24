@@ -35,7 +35,8 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
           "Shopping List",
           style: Constants.boldHeadingAppBar,
         ),
-        textTheme: GoogleFonts.poppinsTextTheme(),
+        toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2,
+        titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
       ),
       body: SafeArea(
         child: list.isNotEmpty ? buildBody() : noContentScreen(),
@@ -70,7 +71,8 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
   Widget buildItem(ToDo item) {
     return Card(
       child: Dismissible(
-        key: Key(item.hashCode.toString()), //HAS TO GIVE A UNIQUE KEY TO IDENTIFY THE DISMISS TILE
+        key: Key(item.hashCode.toString()),
+        //HAS TO GIVE A UNIQUE KEY TO IDENTIFY THE DISMISS TILE
         onDismissed: (direction) => removeItem(item),
         direction: DismissDirection.startToEnd,
         background: Container(

@@ -17,9 +17,9 @@ class _EditUserProfileState extends State<EditUserProfile> {
   TextEditingController _usernameController = TextEditingController();
 
   Future _addDisplayName() async {
-      User updateUser = FirebaseAuth.instance.currentUser;
-      updateUser.updateProfile(displayName: _usernameController.text);
-      _firebaseServices.userSetup(_usernameController.text);
+    User updateUser = FirebaseAuth.instance.currentUser;
+    updateUser.updateDisplayName(_usernameController.text);
+    _firebaseServices.userSetup(_usernameController.text);
   }
 
   @override
@@ -36,10 +36,11 @@ class _EditUserProfileState extends State<EditUserProfile> {
           style: Constants.boldHeadingAppBar,
         ),
         leading: Icon(Icons.edit),
-        textTheme: GoogleFonts.poppinsTextTheme(),
         backgroundColor: Colors.blue,
         toolbarHeight: 80.0,
         elevation: 0.0,
+        toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2,
+        titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
       ),
       body: Container(
         height: double.infinity,
@@ -65,18 +66,17 @@ class _EditUserProfileState extends State<EditUserProfile> {
                           height: 40,
                           width: 40,
                           child: DecoratedBox(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                color: Color(0xfff5f6f9)),
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.camera_alt_rounded,
-                                color: Color(0xff9a9a9c),
-                              ),
-                            )
-                          ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  color: Color(0xfff5f6f9)),
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.camera_alt_rounded,
+                                  color: Color(0xff9a9a9c),
+                                ),
+                              )),
                         ),
                       ),
                     ],
@@ -89,7 +89,8 @@ class _EditUserProfileState extends State<EditUserProfile> {
               Column(
                 children: [
                   Text(
-                    _firebaseServices.getCurrentUserName() ?? "Display Name Here",
+                    _firebaseServices.getCurrentUserName() ??
+                        "Display Name Here",
                     style: Constants.regularWhiteText,
                   )
                 ],
@@ -110,7 +111,8 @@ class _EditUserProfileState extends State<EditUserProfile> {
                   CustomEditBtn(
                     text: "Cancel",
                     onPressed: () {
-                      FocusScope.of(context).requestFocus(FocusNode()); //CLOSING THE KEYBOARD BEFORE GOING TO NEXT PAGE
+                      FocusScope.of(context).requestFocus(
+                          FocusNode()); //CLOSING THE KEYBOARD BEFORE GOING TO NEXT PAGE
                       Navigator.pop(context);
                     },
                     outlineBtn: true,
@@ -118,7 +120,8 @@ class _EditUserProfileState extends State<EditUserProfile> {
                   CustomEditBtn(
                     text: "Save",
                     onPressed: () {
-                      FocusScope.of(context).requestFocus(FocusNode()); //CLOSING THE KEYBOARD BEFORE GOING TO NEXT PAGE
+                      FocusScope.of(context).requestFocus(
+                          FocusNode()); //CLOSING THE KEYBOARD BEFORE GOING TO NEXT PAGE
                       _addDisplayName();
                       Navigator.pop(context);
                     },
@@ -132,8 +135,3 @@ class _EditUserProfileState extends State<EditUserProfile> {
     );
   }
 }
-
-
-
-
-

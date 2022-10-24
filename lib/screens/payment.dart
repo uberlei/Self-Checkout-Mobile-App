@@ -26,9 +26,10 @@ class _ExistingCardsPageState extends State<PaymentPage> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ExistingCardPage(
-            total: widget.total,
-          )),
+          MaterialPageRoute(
+              builder: (context) => ExistingCardPage(
+                    total: widget.total,
+                  )),
         );
         break;
     }
@@ -36,18 +37,20 @@ class _ExistingCardsPageState extends State<PaymentPage> {
 
   payViaNewCard(BuildContext context) async {
     ProgressDialog dialog = new ProgressDialog(context);
-    dialog.style(
-        message: 'Please wait...'
-    );
+    dialog.style(message: 'Please wait...');
     await dialog.show();
     var response = await StripeService.payWithNewCard(
-        amount: '${widget.total.toStringAsFixed(0)}00', currency: 'LKR'); //get total price
+        amount: '${widget.total.toStringAsFixed(0)}00',
+        currency: 'LKR'); //get total price
     await dialog.hide();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(response.message),
-      duration:
-      Duration(milliseconds: response.success == true ? 1200 : 3000),
-    )).closed.then((_) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(
+          content: Text(response.message),
+          duration:
+              Duration(milliseconds: response.success == true ? 1200 : 3000),
+        ))
+        .closed
+        .then((_) {
       if (response.success) {
         print(widget.total);
         Navigator.push(
@@ -75,7 +78,8 @@ class _ExistingCardsPageState extends State<PaymentPage> {
             style: Constants.boldHeadingAppBar,
           ),
           leading: Icon(Icons.monetization_on_rounded),
-          textTheme: GoogleFonts.poppinsTextTheme(),
+          toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2,
+          titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
         ),
         body: Container(
           padding: EdgeInsets.all(20),

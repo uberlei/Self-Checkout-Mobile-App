@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class FirebaseServices{
-
+class FirebaseServices {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
@@ -18,21 +17,18 @@ class FirebaseServices{
     return _firebaseAuth.currentUser.email;
   }
 
-  final CollectionReference productsRef = FirebaseFirestore
-      .instance
-      .collection('Products');
+  final CollectionReference productsRef =
+      FirebaseFirestore.instance.collection('Products');
 
-  final CollectionReference usersCartRef = FirebaseFirestore
-      .instance
-      .collection('Users'); // TO STORE USERS CART | User-->userId->Cart-->productId
+  final CollectionReference usersCartRef = FirebaseFirestore.instance
+      .collection(
+          'Users'); // TO STORE USERS CART | User-->userId->Cart-->productId
 
-  final CollectionReference usersCartHistoryRef = FirebaseFirestore
-      .instance
-      .collection("UsersCartHistory");
+  final CollectionReference usersCartHistoryRef =
+      FirebaseFirestore.instance.collection("UsersCartHistory");
 
-  final CollectionReference userDetailsRef = FirebaseFirestore
-      .instance
-      .collection("UserDetails");
+  final CollectionReference userDetailsRef =
+      FirebaseFirestore.instance.collection("UserDetails");
 
   Future<void> userSetup(String displayName) async {
     CollectionReference users = _firebaseFirestore.collection('UserDetails');

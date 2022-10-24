@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:selfcheckoutapp/constants.dart';
@@ -14,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -26,20 +24,19 @@ class _HomePageState extends State<HomePage> {
             'Home',
             style: Constants.boldHeadingAppBar,
           ),
-          textTheme: GoogleFonts.poppinsTextTheme(),
           toolbarHeight: 200.0,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
                 image: DecorationImage(
-                    image: AssetImage("assets/image2.png"),
-                    fit: BoxFit.cover
-                )
-            ),
+                    image: AssetImage("assets/image2.png"), fit: BoxFit.cover)),
           ),
+          toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2,
+          titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
         ),
         drawer: AppDrawer(),
-
         body: SafeArea(
           child: Container(
             width: double.infinity,

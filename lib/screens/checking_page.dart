@@ -74,7 +74,8 @@ class _CheckingPageState extends State<CheckingPage> {
             style: Constants.boldHeadingAppBar,
           ),
           leading: Icon(Icons.hourglass_bottom),
-          textTheme: GoogleFonts.poppinsTextTheme(),
+          toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2,
+          titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +90,10 @@ class _CheckingPageState extends State<CheckingPage> {
                       Text('Users Cart'),
                       Text('Total: LKR ' + widget.total.toString() + '0',
                           style: TextStyle(fontSize: 32)),
-                      Text('Weight: ' + widget.totalWeight.toStringAsFixed(2) + ' kg',
+                      Text(
+                          'Weight: ' +
+                              widget.totalWeight.toStringAsFixed(2) +
+                              ' kg',
                           style: TextStyle(fontSize: 32)),
                     ],
                   ),

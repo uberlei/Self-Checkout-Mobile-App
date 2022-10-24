@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:selfcheckoutapp/constants.dart';
 import 'package:selfcheckoutapp/screens/home.dart';
 import 'package:selfcheckoutapp/services/payment_services.dart';
-import 'package:stripe_payment/stripe_payment.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class ExistingCardPage extends StatefulWidget {
@@ -39,32 +39,31 @@ class _ExistingCardPageState extends State<ExistingCardPage> {
   //FUNCTION TO PAY
   payViaExistingCard(BuildContext context, card) async {
     ProgressDialog dialog = new ProgressDialog(context);
-    dialog.style(
-        message: 'Please wait...'
-    );
+    dialog.style(message: 'Please wait...');
     await dialog.show();
     var expiryArr = card['expiryDate'].split('/');
-    CreditCard stripeCard = CreditCard(
+    CardDetails stripeCard = CardDetails(
       number: card['cardNumber'],
-      expMonth: int.parse(expiryArr[0]),
-      expYear: int.parse(expiryArr[1]),
+      expirationMonth: int.parse(expiryArr[0]),
+      expirationYear: int.parse(expiryArr[1]),
     );
     var response = await StripeService.payViaExistingCard(
         amount: '${widget.total.toStringAsFixed(0)}00', //get total price
         currency: 'LKR',
-        card: stripeCard
-    );
+        card: stripeCard);
     await dialog.hide();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(
           content: Text(response.message),
           duration: new Duration(milliseconds: 1200),
-        )
-    ).closed.then((_) {
+        ))
+        .closed
+        .then((_) {
       print(widget.total);
       Navigator.push(
-              context,
-               MaterialPageRoute(builder: (context) => HomePage()),
-            );
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
     });
   }
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:selfcheckoutapp/services/firebase_services.dart';
-import 'package:stripe_payment/stripe_payment.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -55,24 +55,18 @@ class StripeService {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
 
-  static init() {
-    StripePayment.setOptions(StripeOptions(
-        publishableKey:
-            "pk_test_51IfMt7FnrKt7w8UFFUjOLYAsZINU5EuE9Qtst7zX2PEGhk5dAharCJQeFH0SdVuozRGQF4JgmfGtyqyfbuuKIAJO0028dxZ7CC",
-        merchantId: "Test",
-        androidPayMode: 'test'));
-  }
+  static init() {}
 
   static Future<StripeTransactionResponse> payViaExistingCard(
-      {String amount, String currency, CreditCard card}) async {
+      {String amount, String currency, CardDetails card}) async {
     try {
-      var paymentMethod = await StripePayment.createPaymentMethod(
-          PaymentMethodRequest(card: card));
+      // var paymentMethod = await Stripe.instance.createPaymentMethod(
+      //     PaymentMethodRequest(card: card));
       var paymentIntent =
           await StripeService.createPaymentIntent(amount, currency);
-      var response = await StripePayment.confirmPaymentIntent(PaymentIntent(
-          clientSecret: paymentIntent['client_secret'],
-          paymentMethodId: paymentMethod.id)); //CONFIRM PAYMENT
+      // var response = await Stripe.instance.confirmPaymentMethod(
+      //     paymentIntent['client_secret']); //CONFIRM PAYMENT
+      var response;
       if (response.status == 'succeeded') {
         //addToCart(itemsList);
         _getFromCart();
@@ -94,13 +88,17 @@ class StripeService {
   static Future<StripeTransactionResponse> payWithNewCard(
       {String amount, String currency}) async {
     try {
-      var paymentMethod = await StripePayment.paymentRequestWithCardForm(
-          CardFormPaymentRequest());
+      // var paymentMethod = await Stripe.instance
+      //     .paymentRequestWithCardForm(CardFormPaymentRequest());
       var paymentIntent =
           await StripeService.createPaymentIntent(amount, currency);
-      var response = await StripePayment.confirmPaymentIntent(PaymentIntent(
-          clientSecret: paymentIntent['client_secret'],
-          paymentMethodId: paymentMethod.id)); //CONFIRM PAYMENT
+
+      // var response = await Stripe.instance.confirmPaymentMethod(PaymentIntent(
+      //     clientSecret: paymentIntent['client_secret'],
+      //     paymentMethodId: paymentMethod.id)); //CONFIRM PAYMENT
+
+      var response;
+
       if (response.status == 'succeeded') {
         //addToCart(itemsList);
         _getFromCart();

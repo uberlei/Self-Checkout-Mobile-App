@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -198,8 +197,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           title: Text(
             "Shopping Cart",
             style: Constants.boldHeadingAppBar,
-          ),
-          textTheme: GoogleFonts.poppinsTextTheme(),
+          ), toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2, titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
         ),
         body: ListView.builder(
           itemCount: itemsList.length,

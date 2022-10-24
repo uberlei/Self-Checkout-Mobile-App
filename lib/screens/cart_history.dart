@@ -70,7 +70,6 @@ class _BillHistoryPageState extends State<BillHistoryPage> {
           "Cart History",
           style: Constants.boldHeadingAppBar,
         ),
-        textTheme: GoogleFonts.poppinsTextTheme(),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20.0),
@@ -80,6 +79,8 @@ class _BillHistoryPageState extends State<BillHistoryPage> {
             ),
           ),
         ],
+        toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyText2,
+        titleTextStyle: GoogleFonts.poppinsTextTheme().headline6,
       ),
       body: SafeArea(
         child: Padding(

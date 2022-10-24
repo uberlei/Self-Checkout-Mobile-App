@@ -26,39 +26,36 @@ class LandingPage extends StatelessWidget {
           return StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, streamSnapshot) {
-            if (streamSnapshot.hasError) {
+              if (streamSnapshot.hasError) {
+                return Scaffold(
+                  body: Center(
+                    child: Text("Error: ${streamSnapshot.error}"),
+                  ),
+                );
+              }
+
+              //CONNECTION STATE ACTIVE - DO THE LOGIN
+              if (streamSnapshot.connectionState == ConnectionState.active) {
+                //GET THE USER
+                User _user = streamSnapshot.data;
+
+                //IF THE USER IS NULL - NOT LOGGING IN
+                if (_user == null) {
+                  //USER NOT LOGGED IN - HEAD TO LOGIN PAGE
+                  return LoginPage();
+                } else {
+                  //USER IS LOGGED IN - HEAD TO HOME PAGE
+                  return HomePage();
+                }
+              }
+
+              //CHECKING THE AUTH STATE - LOADING
               return Scaffold(
                 body: Center(
-                  child: Text("Error: ${streamSnapshot.error}"),
+                  child: Loading(),
                 ),
               );
-            }
-
-            //CONNECTION STATE ACTIVE - DO THE LOGIN
-            if(streamSnapshot.connectionState == ConnectionState.active){
-
-              //GET THE USER
-              User _user = streamSnapshot.data;
-
-              //IF THE USER IS NULL - NOT LOGGING IN
-              if(_user == null){
-
-                //USER NOT LOGGED IN - HEAD TO LOGIN PAGE
-                return LoginPage();
-              }else{
-
-                //USER IS LOGGED IN - HEAD TO HOME PAGE
-                return HomePage();
-              }
-            }
-
-            //CHECKING THE AUTH STATE - LOADING
-            return Scaffold(
-              body: Center(
-                child: Loading(),
-              ),
-            );
-          },
+            },
           );
         }
 
